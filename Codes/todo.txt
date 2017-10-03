@@ -1,0 +1,28 @@
+1.
+Count the number of students in a variable called students_qtd.
+
+2.
+Count the number of stundents about to graduate in that year. Assign the value in a variable called
+in_concluinte_qtd.
+
+3.
+Do the same thing as above, i.e, count the number of appearance for the folowing fields:
+IN_DEF_AUDITIVA
+IN_DEF_SURDEZ
+IND_DEF_BAIXA_VISAO
+IN_DEF_CEGUEIRA
+IN_DEF_SUPERDOTACAO
+IN_TGV_AUTISMO_INFANTIL
+IN_APOIO_BOLSA_PERMANENCIA
+
+4.
+For all the quantities registered above make a pizza chart for every one.
+
+5.
+Show the charts in a web interface using django.
+
+6.
+Get all above information for computer science course.
+
+6.
+Fazer interface para selecionar variáveis.
