@@ -38,35 +38,55 @@ def main():
         "IN_CONCLUINTE", "IN_SEXO_ALUNO",
     ]    
 
-    fields_to_read = [
+    fields_to_operate = [
         'IN_DEF_AUDITIVA', 'IN_DEF_FISICA', 'IN_DEF_INTELECTUAL', 'IN_DEF_MULTIPLA', 'IN_DEF_SURDEZ',   
         'IN_DEF_SURDOCEGUEIRA', 'IN_DEF_BAIXA_VISAO', 'IN_DEF_CEGUEIRA', 'IN_DEF_SUPERDOTACAO', 'IN_TGD_AUTISMO_INFANTIL', 
         'IN_TGD_SINDROME_ASPERGER', 'IN_TGD_SINDROME_RETT', 'IN_TGD_TRANSTOR_DESINTEGRATIVO', 
         "IN_CONCLUINTE", "IN_SEXO_ALUNO", 
     ]
     
-    fields_qtd = readCsv(fields_to_read)
-    doPieGraphs(fields_name_lst, fields_qtd)
+    fields_qtd = readCsv(fields_to_operate)
+    doPieGraphs(fields_to_operate, fields_qtd)
 
 # Works only for fields that have only three type of values: 0, 1 and None.
-def doPieGraphs(fields_name_lst, fields_qtd):
-    # Sex.
-    label_sex = ["Masculino", "Feminino", "Sem informação"]
-    values_sex = fields_qtd["IN_SEXO_ALUNO"]
+def doPieGraphs(fields_to_plot, fields_qtd):
+    labels = []
+    fields_value = []
+    graph_objs = []
+    # Makes pie graphs for all values listed in fields_name_lst parameter.
 
-    # Concluinte.
-    label_concluinte = ["Não Graduando", "Graduando", "Sem informação"]
-    values_concluinte = fields_qtd["IN_CONCLUINTE"] 
+    # Prepare graphic paramaters.
+    for field in fields_to_plot:
+        label = ["Não " + field, "Sim " + field, "Sem informação"]
+        values = fields_qtd[field]
+        #labels.append(label)
+        #fields_value.append(values)
+        # Set the trace that will be draw.
+        graph_objs.append( grapho.Pie(labels=label, values=values) ) 
+        
+    # Do the draw.
+    for idx in range( len(fields_to_plot) ):
+       pltoff.plot([graph_objs[idx]], filename=fields_to_plot[idx]+"_graph") 
+        
 
-    # Deficiências.
+ 
+    ## Sex.
+    #label_sex = ["Masculino", "Feminino", "Sem informação"]
+    #values_sex = fields_qtd["IN_SEXO_ALUNO"]
 
-    # Make graphics object.
-    trace_sex = grapho.Pie(labels=label_sex, values=values_sex)
-    trace_concluinte = grapho.Pie(labels=label_concluinte, values=values_concluinte)
+    ## Concluinte.
+    #label_concluinte = ["Não Graduando", "Graduando", "Sem informação"]
+    #values_concluinte = fields_qtd["IN_CONCLUINTE"] 
 
-    # Do the graphs.
-    pltoff.plot([trace_sex], filename="pie_sex_graph") 
-    pltoff.plot([trace_concluinte], filename="pie_concluinte_graph")
+    ## Deficiências.
+
+    ## Make graphics object.
+    #trace_sex = grapho.Pie(labels=label_sex, values=values_sex)
+    #trace_concluinte = grapho.Pie(labels=label_concluinte, values=values_concluinte)
+
+    ## Do the graphs.
+    #pltoff.plot([trace_sex], filename="pie_sex_graph") 
+    #pltoff.plot([trace_concluinte], filename="pie_concluinte_graph")
     
 
 
