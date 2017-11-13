@@ -1,0 +1,233 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DJVS - Data Jounarlism Visula System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- JQuery chosen Corese CSS -->
+    <link href="{% static 'outros/jquery_chosen/css/chosen.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap Custon CSS for navbar -->
+    <!-- <link href="{% static 'bootstrap/css/navbar-fixed-side.css' %}" rel="stylesheet" /> -->
+
+
+    <!-- Custom CSS -->
+    <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+    <!-- Carousel -->
+    <style type="text/css">
+        .carousel{
+            background: #2f4357;
+            margin-top: 20px;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 0 auto;
+        }
+        .carousel .item{
+             /* Prevent carousel from being distorted if for some reason image doesn't load */
+            min-width: 500px;
+            min-height: 500px;
+        }
+        .carousel .item img{
+            margin: 0 auto; /* Align slide image horizontally center */
+        }
+        .bs-example{
+            margin: 20px;
+        }
+    </style>
+
+    <!-- Side bar -->
+    <style type="text/css">
+        /* CSS used here will be applied after bootstrap.css */
+        .navbar-fixed-left {
+          width: 200px;
+          position: relative;
+          border-radius: 10px;
+          height: 100%;
+          padding-left: 20px;
+        }
+
+    </style>
+    
+    
+   
+    <!-- Carousel CSS -->
+
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">DJVS</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="#">Busca SQL</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+       <!-- <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>A Bootstrap Starter Template</h1>
+                <p class="lead">Complete with pre-defined file paths that you won't have to change!!</p>
+                <ul class="list-unstyled">
+                    <li>Bootstrap v3.3.6</li>
+                    <li>jQuery v1.11.1</li>
+                </ul>
+            </div>
+        </div> -->
+        <!-- /.row -->
+
+        <div class="row">
+
+            <div class="col-md-4 text-center">
+                <div class="container">
+                    <div class="sidebar-nav">
+                        <nav class="navbar navbar-inverse navbar-fixed-left" role="navigation">
+                            <div class="container-fluid">
+                                <form action="" method="GET">
+                                    
+                                    <select multiple class="chosen-select">
+                                        <option value="Mango">Mango</option>
+                                         <option value="Chocolate">Chocolate</option>
+                                         <option value="Milk">Milk</option>
+                                    </select>
+                                    
+                                    <select multiple class="chosen-select">
+                                        <option value="Mango">Mango</option>
+                                         <option value="Chocolate">Chocolate</option>
+                                         <option value="Milk">Milk</option>
+                                    </select>
+
+                                    <input type="button" name="Enviar">
+
+                                </form>
+                            </div>
+                        
+                        </nav>
+                    </div>
+                </div> <!-- container -->
+            
+            </div> 
+
+            <div class="col-md-8 text-center">
+
+               <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>   
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div id="c62c8162-babb-4110-ae5b-8b595cb293a6" style="height: 100%; width: 100%;" class="plotly-graph-div"></div>
+                            <script type="text/javascript">window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("c62c8162-babb-4110-ae5b-8b595cb293a6", [{"values": [79, 10, 16135], "type": "pie", "labels": ["N\u00e3o IN_DEF_FISICA", "Sim IN_DEF_FISICA", "Sem informa\u00e7\u00e3o"]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})
+                            </script>
+                            <div class="carousel-caption">
+                                <h3>First slide label</h3>
+                                <p>Lorem ipsum dolor sit amet...</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="images/slide2.png" alt="Second Slide">
+                            <div class="carousel-caption">
+                                <h3>Second slide label</h3>
+                                <p>Aliquam sit amet gravida nibh, facilisis...</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="carousel-caption">
+                                <h3>Third slide label</h3>
+                                <p>Praesent commodo cursus magna vel...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel nav -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div><!-- Carousel -->
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script> 
+    <!-- Other Core JavaScript -->
+    <!-- JQuery Chosen -->
+    <script type="text/javascript" src="{% static 'outros/jquery_chosen/js/chosen.jquery.min.js' %}">
+        
+    </script>
+    <script type="text/javascript">
+        <!-- jQuery Chosen function call -->
+        $(document).ready(function() {
+        $('select').chosen({width: "95%", no_results_text: "Oops, nothing found!"});
+        });
+    </script>
+
+</body>
+
+</html>
