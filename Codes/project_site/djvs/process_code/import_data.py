@@ -49,12 +49,25 @@ def main():
     ]
 
     # DEBUG
-    getFieldNames()
+    #getFieldNames()
+
+    # DEBUG
+    start_process(fields_to_operate)
     
     #fields_qtd = readCsv(fields_to_operate, 2)
     #doPieGraphs(fields_to_operate, fields_qtd)
 
-# Return a list with every values on first line of the csv file.
+def start_process(fields_to_operate):
+    fields_qtd = readCsv(fields_to_operate, 2)
+    doPieGraphs(fields_to_operate, fields_qtd)
+
+# Return a list with div elements containing the bulk of informations needed to
+# build graphics in a website.
+def getGraphsWebComponents(fields_to_operate):
+    fields_qtd = readCsv(fields_to_operate, 2)
+    return doPieGraphs(fields_to_operate, fields_qtd)
+
+# Return a list with each value in first line of the csv file.
 # This first values are the fields name.
 def getFieldNames():
     all_field_names = []
@@ -72,12 +85,14 @@ def getFieldNames():
     return all_field_names
 
 # Works only for fields that have only three type of values: 0, 1 and None.
+# Return a list with div elements containing the bulk of informations needed to
+# build graphics in a website.
 def doPieGraphs(fields_to_plot, fields_qtd):
     output_path = "../../project_site/static/graphs/"
     labels = []
     fields_value = []
     graph_objs = []
-    output_div = []
+    output_div_list = []
     # Makes pie graphs for all values listed in fields_name_lst parameter.
 
     # Prepare graphic paramaters.
@@ -93,16 +108,19 @@ def doPieGraphs(fields_to_plot, fields_qtd):
 
         # Do the draw.
         for idx in range( len(fields_to_plot) ):
-            output_div = pltoff.plot(
-                [graph_objs[idx]], 
-                include_plotlyjs=False, 
-                output_type="div", 
-                #filename=output_path + fields_to_plot[idx] + "_graph",
-                auto_open="False"
-            ) 
+            output_div_list.append( pltoff.plot(
+                    [graph_objs[idx]], 
+                    include_plotlyjs=False, 
+                    output_type="div", 
+                    #filename=output_path + fields_to_plot[idx] + "_graph",
+                    auto_open="False"
+                ) 
+            ) #/list.append
+        for output_div in output_div_list:
             output_divs.write(output_div + "\n")
             print(output_div)
 
+            return output_div_list
     ## Sex.
     #label_sex = ["Masculino", "Feminino", "Sem informação"]
     #values_sex = fields_qtd["IN_SEXO_ALUNO"]
@@ -143,7 +161,7 @@ def readCsv(fields_to_read, selected_course ):
         fields_qtd[field_name] = [0, 0, 0] # In order: 0 type, 1 type and none type.
         empty_fields_qtd[field_name] = 0
 
-    csv_file = open("microdados/2014/DM_ALUNO.CSV", "rt", encoding="latin_1")
+    csv_file = open(MICRODADOS_DIR + "/2014/DM_ALUNO.CSV", "rt", encoding="latin_1")
     #print(csv_file.readlines())
     csv_reader = csv.reader(csv_file, delimiter="|")
 
