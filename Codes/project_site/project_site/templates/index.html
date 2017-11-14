@@ -135,21 +135,18 @@
                     <div class="sidebar-nav">
                         <nav class="navbar navbar-inverse navbar-fixed-left" role="navigation">
                             <div class="container-fluid">
-                                <form action="" method="GET">
-                                    
-                                    <select multiple class="chosen-select">
-                                        <option value="Mango">Mango</option>
-                                         <option value="Chocolate">Chocolate</option>
-                                         <option value="Milk">Milk</option>
+                                <form action="" method="POST">
+                                                                      
+                                    <select multiple class="chosen-select" name="op">
+                                        {% for field_name in field_names %}
+                                            <option value={{ field_name }}>
+                                            {{ field_name }}
+                                        </option>
+                                        {% endfor %}
+                                      
                                     </select>
-                                    
-                                    <select multiple class="chosen-select">
-                                        <option value="Mango">Mango</option>
-                                         <option value="Chocolate">Chocolate</option>
-                                         <option value="Milk">Milk</option>
-                                    </select>
-
-                                    <input type="button" name="Enviar">
+                                    {% csrf_token %}
+                                    <input type="submit" name="Enviar">
 
                                 </form>
                             </div>
@@ -172,9 +169,7 @@
                     <!-- Carousel items -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <div id="c62c8162-babb-4110-ae5b-8b595cb293a6" style="height: 100%; width: 100%;" class="plotly-graph-div"></div>
-                            <script type="text/javascript">window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("c62c8162-babb-4110-ae5b-8b595cb293a6", [{"values": [79, 10, 16135], "type": "pie", "labels": ["N\u00e3o IN_DEF_FISICA", "Sim IN_DEF_FISICA", "Sem informa\u00e7\u00e3o"]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})
-                            </script>
+                            
                             <div class="carousel-caption">
                                 <h3>First slide label</h3>
                                 <p>Lorem ipsum dolor sit amet...</p>
@@ -224,7 +219,10 @@
     <script type="text/javascript">
         <!-- jQuery Chosen function call -->
         $(document).ready(function() {
-        $('select').chosen({width: "95%", no_results_text: "Oops, nothing found!"});
+            $('.chosen-select').chosen({
+                width: "95%", 
+                no_results_text: "Oops, nothing found!"
+            });
         });
     </script>
 
