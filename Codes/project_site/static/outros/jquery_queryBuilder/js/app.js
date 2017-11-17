@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 	$('.parse-json').on('click', function() {
 		console.log(JSON.stringify(
-			$('#q-builder').queryBuilder('getRules'),
+			$('#builder').queryBuilder('getRules'),
 			undefined, 2
 		));
 	});
