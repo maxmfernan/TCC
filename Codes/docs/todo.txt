@@ -47,6 +47,9 @@ Insert a upload button to load a csv file on sqlite database.
 13.
 Make a option to select a scope for the queries. For instance, all universities, specific university.
 
+14.
+Select only the fields that can return a proper output. 
+
 
 
 
