@@ -15,8 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_R_DIR = os.path.join(ROOT_DIR, "static")
-TEMPLATES_R_DIR = os.path.join(ROOT_DIR, "templates")
+STATIC_R_DIR = os.path.join(BASE_DIR, "static")
+TEMPLATES_R_DIR = os.path.join(BASE_DIR, "templates")
 
 
 # Quick-start development settings - unsuitable for production
@@ -122,12 +122,17 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# 
+STATIC_URL = "/static/"
 
-STATIC_URL = STATIC_R_DIR + '/' #'/static/'ATI
-STATICFILES_DIR = (
-    STATIC_URL
-)
+STATICFILES_DIRS = [
+    STATIC_R_DIR,
+]
+   
 
-print(STATIC_URL + "1")
-print(STATIC_URL + "2")
+
+# DEBUG
+print("\n\n")
+print("Static directory: " + STATIC_R_DIR)
+print("Template directory: " + TEMPLATES_R_DIR)
+print("-"*20)

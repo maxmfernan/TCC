@@ -18,20 +18,34 @@ IN_APOIO_BOLSA_PERMANENCIA
 4.	X
 For all the quantities registered above make a pizza chart for every one.
 
-5.
+5. X
 Show the charts in a web interface using django.
 
-6.
+6. X
 Get all above information for computer science course.
 
 7.
 Get a selected list of fields to be operated on.	X -> Works only to fields wich values are either 0 or 1.
 
-8.
+8. X
 Make a interface to select all variables that the user want.
 
-9.
+9. X
 Plot at least 3 pie graphs on the same window.
+
+-----------------------------------------------------------------------------------------
+
+10. 
+Make a interface for sql queries.	x
+
+11.
+Import csv file for sqlite database.
+
+12.
+Insert a upload button to load a csv file on sqlite database.
+
+13.
+Make a option to select a scope for the queries. For instance, all universities, specific university.
 
 
 

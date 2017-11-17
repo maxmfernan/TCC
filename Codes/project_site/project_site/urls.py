@@ -19,5 +19,6 @@ from djvs import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index_render),
+    url(r'^$', views.index_render, name="index"),
+    url(r'^busca_sql$', views.sql_render, name="busca_sql")
 ]
