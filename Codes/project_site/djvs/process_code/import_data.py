@@ -59,7 +59,8 @@ def main():
 
 def start_process(fields_to_operate):
     fields_qtd = readCsv(fields_to_operate, 2)
-    doPieGraphs(fields_to_operate, fields_qtd)
+    #doPieGraphs(fields_to_operate, fields_qtd)
+    doBarChart(fields_to_operate, fields_qtd)
 
 # Return a list with div elements containing the bulk of informations needed to
 # build graphics in a website.
@@ -139,7 +140,91 @@ def doPieGraphs(fields_to_plot, fields_qtd):
     #pltoff.plot([trace_sex], filename="pie_sex_graph") 
     #pltoff.plot([trace_concluinte], filename="pie_concluinte_graph")
     
+# Make one Scatter graph with all values selected in fields_to_plot. 
+def doScatterPlot():
+    output_path = "../../project_site/static/graphs/"
+    labels = []
+    fields_value = []
+    graph_objs = []
+    output_div_list = []
+    # Makes pie graphs for all values listed in fields_name_lst parameter.
 
+    # Prepare graphic paramaters.
+    for field in fields_to_plot:
+        label = ["Não " + field, "Sim " + field, "Sem informação"]
+        values = fields_qtd[field]
+        #labels.append(label)
+        #fields_value.append(values)
+        # Set the trace that will be draw.
+        graph_objs.append( grapho.Pie(labels=label, values=values) ) 
+        
+    with open("output_divs.txt", "wt") as output_divs:
+
+        # Do the draw.
+        for idx in range( len(fields_to_plot) ):
+            output_div_list.append( pltoff.plot(
+                    [graph_objs[idx]], 
+                    include_plotlyjs=False, 
+                    output_type="div", 
+                    #filename=output_path + fields_to_plot[idx] + "_graph",
+                    auto_open="False"
+                ) 
+            ) #/list.append
+        for output_div in output_div_list:
+            output_divs.write(output_div + "\n")
+            print(output_div)
+
+            return output_div_list
+
+
+# Make one bar graph with all values selected in fields_to_plot.
+def doBarChart(fields_to_plot, fields_qtd):
+    output_path = "../../project_site/static/graphs/"
+    labels = []
+    values = []
+    fields_value = []
+    graph_objs = []
+    output_div_list = []
+ 
+    #
+
+
+    # Prepare graphic paramaters.
+    # Traces to be drawn.
+    for field in fields_to_plot:
+        label = ["Não" , "Sim", "Sem informação"]
+        value = fields_qtd[field]
+        trace = grapho.Bar(x=label, y=value, name=field)
+        graph_objs.append(trace)
+
+    #DEBUG
+    print("\n\n")
+    print(type(graph_objs))
+    print(str(graph_objs))
+    print("-"*20)
+
+    layout = grapho.Layout(barmode ="group")
+    figure = grapho.Figure(data=graph_objs, layout=layout)
+
+     
+        
+    with open("output_divs.txt", "wt") as output_divs:
+
+        # Do the draw.
+        # First argument of plot is the trace setted above.
+        output_div_list.append( pltoff.plot(
+                figure, 
+                include_plotlyjs=False, 
+                output_type="div", 
+                #filename=output_path + fields_to_plot[idx] + "_graph",
+                auto_open="False"
+            ) 
+        ) #/list.append
+        for output_div in output_div_list:
+            output_divs.write(output_div + "\n")
+            print("Bar chart: " + output_div)
+
+    return output_div_list
 
 #def setGraphValues(field_name):
 #    value_lst = []
