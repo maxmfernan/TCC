@@ -60,7 +60,8 @@ def main():
 def start_process(fields_to_operate):
     fields_qtd = readCsv(fields_to_operate, 2)
     #doPieGraphs(fields_to_operate, fields_qtd)
-    doBarChart(fields_to_operate, fields_qtd)
+    #doBarChart(fields_to_operate, fields_qtd)
+    doHistogramChart(fields_to_operate, fields_qtd)
 
 # Return a list with div elements containing the bulk of informations needed to
 # build graphics in a website.
@@ -141,35 +142,80 @@ def doPieGraphs(fields_to_plot, fields_qtd):
     #pltoff.plot([trace_concluinte], filename="pie_concluinte_graph")
     
 # Make one Scatter graph with all values selected in fields_to_plot. 
-def doScatterPlot():
+def doHistogramChart(fields_to_plot, fields_qtd):
     output_path = "../../project_site/static/graphs/"
     labels = []
     fields_value = []
-    graph_objs = []
+    #graph_objs = []
     output_div_list = []
-    # Makes pie graphs for all values listed in fields_name_lst parameter.
+    trace0 = []
+    trace1 = []
+    trace2 = []
+    x0 = []
+    x1 = []
+    x2 = []
+    # Makes histogram chart with values in fields_qtd through fields_to_plot.
+    # Diferent colors for NOT, YES and WITHOUT INFORMATION.
 
     # Prepare graphic paramaters.
     for field in fields_to_plot:
-        label = ["Não " + field, "Sim " + field, "Sem informação"]
-        values = fields_qtd[field]
-        #labels.append(label)
-        #fields_value.append(values)
-        # Set the trace that will be draw.
-        graph_objs.append( grapho.Pie(labels=label, values=values) ) 
+        
+        x0.append( fields_qtd[field][0] )# List with three values matching the labels.
+        x1.append( fields_qtd[field][1] )
+        x2.append( fields_qtd[field][2] )
+        
+
+    # Set the traces that will be draw.
+    # The traces will compose the data to be plot.
+    # Three traces per time. One for each color.
+    trace0 = grapho.Histogram(
+        name="Não", 
+        x=x0,
+        opacity=0.75
+
+    )  #NOT values
+    trace1 = grapho.Histogram(
+        name="Sim", 
+        x=x1,
+        opacity=0.70
+    )  #YES values
+    trace2 = grapho.Histogram(
+        name="Sem informação", 
+        x=x2,
+        opacity=0.65
+
+    ) #WITHOUT INFORMATIONS values
+
+
+
+    # I need: data, layout and figure.
+
+    #data
+    graph_objs = [trace0, trace1, trace2] 
+
+    # DEBUG
+    print("-"*20)
+    print(str(trace0))
+    print("-"*20)
+    print( ">> " + str(graph_objs) + "\n>>" + str(type(graph_objs)) )
+    #layout    
+    layout = grapho.Layout(barmode="overlay")
+    figure = grapho.Figure(data=graph_objs, layout=layout)
+
+     
         
     with open("output_divs.txt", "wt") as output_divs:
 
         # Do the draw.
-        for idx in range( len(fields_to_plot) ):
-            output_div_list.append( pltoff.plot(
-                    [graph_objs[idx]], 
-                    include_plotlyjs=False, 
-                    output_type="div", 
-                    #filename=output_path + fields_to_plot[idx] + "_graph",
-                    auto_open="False"
-                ) 
-            ) #/list.append
+       
+        output_div_list.append( pltoff.plot(
+                figure, 
+                include_plotlyjs=False, 
+                output_type="div", 
+                #filename=output_path + fields_to_plot[idx] + "_graph",
+                auto_open="False"
+            ) 
+        ) #/list.append
         for output_div in output_div_list:
             output_divs.write(output_div + "\n")
             print(output_div)
