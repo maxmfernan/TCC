@@ -32,6 +32,8 @@ fields_name = [
 PROCESS_DIR = os.path.dirname(os.path.abspath(__file__))
 MICRODADOS_DIR = os.path.join(PROCESS_DIR, "microdados")
 
+
+
 def main():
     fields_name_lst = [
         "students_qtd",
@@ -48,6 +50,7 @@ def main():
         "IN_CONCLUINTE", "IN_SEXO_ALUNO", 
     ]
 
+    
     # DEBUG
     #getFieldNames()
 
@@ -58,16 +61,31 @@ def main():
     #doPieGraphs(fields_to_operate, fields_qtd)
 
 def start_process(fields_to_operate):
-    fields_qtd = readCsv(fields_to_operate, 2)
+    #fields_qtd = readCsv(fields_to_operate, 2)
     #doPieGraphs(fields_to_operate, fields_qtd)
     #doBarChart(fields_to_operate, fields_qtd)
-    doHistogramChart(fields_to_operate, fields_qtd)
+    #doHistogramChart(fields_to_operate, fields_qtd)
+    #all_graphs_t = {
+    #    "Pie": doPieGraphs, 
+    #    "Bar": doBarChart, 
+    #    "Histogram": doHistogramChart,
+    #}
+
+    #all_graphs_t["Histogram"](fields_to_operate, fields_qtd)
+    print( str(getGraphsWebComponents(fields_to_operate, "Pie") ))
 
 # Return a list with div elements containing the bulk of informations needed to
 # build graphics in a website.
-def getGraphsWebComponents(fields_to_operate):
+
+def getGraphsWebComponents(fields_to_operate, graph_type):
+    all_graphs_t = {
+        "Pie": doPieGraphs, 
+        "Bar": doBarChart, 
+        "Histogram": doHistogramChart,
+    }
+
     fields_qtd = readCsv(fields_to_operate, 2)
-    return doPieGraphs(fields_to_operate, fields_qtd)
+    return all_graphs_t[graph_type](fields_to_operate, fields_qtd)
 
 # Return a list with each value in first line of the csv file.
 # This first values are the fields name.
@@ -85,6 +103,11 @@ def getFieldNames():
 
 
     return all_field_names
+
+def getGraphsType():
+    gt = ["Pie", "Bar", "Histogram"]
+
+    return gt
 
 # Works only for fields that have only three type of values: 0, 1 and None.
 # Return a list with div elements containing the bulk of informations needed to
